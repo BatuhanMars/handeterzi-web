@@ -9,8 +9,11 @@ const nextConfig: NextConfig = {
   // loads directly from node_modules at runtime.
   serverExternalPackages: ["better-sqlite3"],
   images: {
-    // Local admin uploads (/uploads/*) need no config. Demo/seed photos may
-    // reference Unsplash; whitelist its CDN so next/image can optimize them.
+    // Self-hosted (Plesk/Passenger) ortamında Next.js resim optimizasyonu
+    // çalışma anında yüklenen yerel dosyalar için 400 veriyor. Optimizasyonu
+    // kapatıyoruz: <Image> düz <img src="/uploads/..."> olarak render edilir
+    // ve dosya Apache tarafından doğrudan sunulur (doğrulandı: 200).
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
